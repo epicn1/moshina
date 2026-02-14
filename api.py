@@ -1,6 +1,21 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 app = FastAPI()
+origins = [
+    "http://localhost:3000",    # React
+    "http://localhost:5173",    # Vite/Vue
+    "http://127.0.0.1:5500",    # VS Code Live Server
+    "*",                        # Hammasiga ruxsat berish uchun (faqat test rejimida)
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 class AddCars(BaseModel):
     nomi: str
     modeli: int
