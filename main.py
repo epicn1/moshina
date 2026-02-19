@@ -188,3 +188,13 @@ def deleteCars(car_id: int):
     global cars
     cars = [car for car in cars if car["id"] != car_id]  
     return {"message": f"Car with id {car_id} id li mashina o'chirildi."}
+@app.put("/api/update/{car_id}")
+def update(car_id: int, updateUser: AddCars):
+    for u in cars:
+        if u["id"] == car_id:
+            u["nomi"] = updateUser.nomi
+            u["modeli"] = updateUser.modeli
+            u["narxi"] = updateUser.narxi
+            u["rasmi"] = updateUser.rasmi
+            return f"{updateUser.nomi} yangilandi"
+    return {"error": f"{car_id} id li mashina topilmadi"}
